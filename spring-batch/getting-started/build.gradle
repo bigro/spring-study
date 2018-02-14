@@ -1,3 +1,12 @@
 plugins {
     id 'org.springframework.boot' version '1.5.10.RELEASE'
 }
+
+jar {
+    baseName = 'gs-batch-processing'
+    version =  '0.1.0'
+}
+
+dependencies {
+    compile("org.hsqldb:hsqldb")
+}
