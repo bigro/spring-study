@@ -1,0 +1,13 @@
+subprojects {
+    apply plugin: 'java'
+
+    dependencies {
+        compile("org.springframework.boot:spring-boot-starter-batch")
+        testCompile 'junit:junit:4.12'
+    }
+
+    repositories {
+        mavenCentral()
+        jcenter()
+    }
+}
