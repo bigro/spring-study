@@ -1,11 +1,14 @@
 plugins {
     id 'java-library'
+    id 'org.springframework.boot' version '1.5.10.RELEASE'
 }
 
 dependencies {
+    compile("org.springframework.boot:spring-boot-starter-batch")
     testCompile 'junit:junit:4.12'
 }
 
 repositories {
+    mavenCentral()
     jcenter()
 }
