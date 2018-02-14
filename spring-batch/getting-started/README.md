@@ -5,8 +5,8 @@
 CSVからデータをインポートしてコードで変換し、結果をデータベースに保存する。
 
 ## PersonItemProcessor.java
-Personオブジェクトを受け取ってそれを大文字のPersonオブジェクトに変換する。
-PersonItemProcessorはSpring BatchのItemProcessorインターフェイスを実装しています。
+`Person` オブジェクトを受け取ってそれを大文字の `Person` オブジェクトに変換します。
+`PersonItemProcessor` はSpring Batchの `ItemProcessor` インターフェイスを実装しています。
 これによりバッチジョブのコードに簡単につなぐことができます。
 
 ## BatchConfiguration.java
