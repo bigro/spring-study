@@ -67,3 +67,7 @@ SQLで上記のLIMITの記載がないとページサイズを超えた件数を
 
 こうなりました。
 
+## MyBatisCursorItemReader
+カーソルを使用してデータベースからレコードを取得します。
+
+使い方は基本的に `MyBatisPagingItemReader` と同じです。
