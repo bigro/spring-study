@@ -2,6 +2,7 @@ package hello;
 
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.batch.MyBatisBatchItemWriter;
+import org.mybatis.spring.batch.MyBatisPagingItemReader;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
@@ -33,17 +34,11 @@ public class BatchConfiguration {
 
     // tag::readerwriterprocessor[]
     @Bean
-    public FlatFileItemReader<Person> reader() {
-        FlatFileItemReader<Person> reader = new FlatFileItemReader<Person>();
-        reader.setResource(new ClassPathResource("sample-data.csv"));
-        reader.setLineMapper(new DefaultLineMapper<Person>() {{
-            setLineTokenizer(new DelimitedLineTokenizer() {{
-                setNames(new String[] { "firstName", "lastName" });
-            }});
-            setFieldSetMapper(new BeanWrapperFieldSetMapper<Person>() {{
-                setTargetType(Person.class);
-            }});
-        }});
+    public MyBatisPagingItemReader<Person> reader(SqlSessionFactory sqlSessionFactory) {
+        MyBatisPagingItemReader<Person> reader = new MyBatisPagingItemReader<>();
+        reader.setSqlSessionFactory(sqlSessionFactory);
+        reader.setQueryId(PersonMapper.class.getName() + ".select");
+        reader.setPageSize(5);
         return reader;
     }
 
@@ -54,7 +49,7 @@ public class BatchConfiguration {
 
     @Bean
     public MyBatisBatchItemWriter<Person> writer(SqlSessionFactory sqlSessionFactory) {
-        MyBatisBatchItemWriter<Person> writer = new MyBatisBatchItemWriter<Person>();
+        MyBatisBatchItemWriter<Person> writer = new MyBatisBatchItemWriter<>();
         writer.setSqlSessionFactory(sqlSessionFactory);
         writer.setStatementId(PersonMapper.class.getName() + ".insert");
         return writer;
@@ -75,8 +70,8 @@ public class BatchConfiguration {
     @Bean
     public Step step1(SqlSessionFactory sqlSessionFactory) {
         return stepBuilderFactory.get("step1")
-                .<Person, Person> chunk(10)
-                .reader(reader())
+                .<Person, Person> chunk(5)
+                .reader(reader(sqlSessionFactory))
                 .processor(processor())
                 .writer(writer(sqlSessionFactory))
                 .build();
