@@ -4,8 +4,11 @@
 ## MyBatisBatchItemWriter
 バッチ処理の前処理から渡ってきたList型のインスタンスを処理します。
 
+
 `setStatementId` でMapperで定義したメソッド名を指定するとそのSQLが発行されます。
+
 この例では`PersonMapper` の `insert` を動かしたいので、 `insert` を指定すれば良いのですが、 `DummyMapper` にも同じように `insert` メソッドがあります。
+
 この場合は、完全修飾名で `hello.PersonMapper.insert` のように指定すれば良いです。
 
 ドキュメントでは
