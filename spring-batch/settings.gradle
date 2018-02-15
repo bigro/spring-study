@@ -1,1 +1,1 @@
-include 'quick-start', 'getting-started'
+include 'quick-start', 'getting-started', 'with-mybatis'

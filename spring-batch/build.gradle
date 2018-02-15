@@ -1,8 +1,19 @@
 subprojects {
+
+    buildscript {
+        ext {
+            springBootVersion = '1.5.10.RELEASE'
+            compatibility = 1.8
+        }
+        repositories {
+            jcenter()
+        }
+    }
+
     apply plugin: 'java'
 
-    sourceCompatibility = 1.8
-    targetCompatibility = 1.8
+    sourceCompatibility = compatibility
+    targetCompatibility = compatibility
 
     dependencies {
         compile("org.springframework.boot:spring-boot-starter-batch")
