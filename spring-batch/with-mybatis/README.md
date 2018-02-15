@@ -2,7 +2,7 @@
 [mybatis-spring](http://www.mybatis.org/spring/ja/batch.html)で[getting-started](../getting-started)を改造。
 peopleテーブルから取得した名前を大文字にしてpeople_upper_caseテーブルに保存します。
 
-※[spring-study](../spring-study) のサブプロジェクトです。
+※ [spring-study](../spring-study) のサブプロジェクトです。
 
 ## MyBatisBatchItemWriter
 バッチ処理の前処理から渡ってきたList型のインスタンスを処理します。
