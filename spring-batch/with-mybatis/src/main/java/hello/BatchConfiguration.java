@@ -56,7 +56,7 @@ public class BatchConfiguration {
     public MyBatisBatchItemWriter<Person> writer(SqlSessionFactory sqlSessionFactory) {
         MyBatisBatchItemWriter<Person> writer = new MyBatisBatchItemWriter<Person>();
         writer.setSqlSessionFactory(sqlSessionFactory);
-        writer.setStatementId("insert");
+        writer.setStatementId(PersonMapper.class.getName() + ".insert");
         return writer;
     }
     // end::readerwriterprocessor[]
