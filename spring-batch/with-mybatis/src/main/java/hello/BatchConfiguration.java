@@ -38,7 +38,7 @@ public class BatchConfiguration {
         MyBatisPagingItemReader<Person> reader = new MyBatisPagingItemReader<>();
         reader.setSqlSessionFactory(sqlSessionFactory);
         reader.setQueryId(PersonMapper.class.getName() + ".select");
-        reader.setPageSize(5);
+        reader.setPageSize(10);
         return reader;
     }
 
