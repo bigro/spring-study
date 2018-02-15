@@ -36,13 +36,21 @@ peopleテーブルから取得した名前を大文字にしてpeople_upper_case
 `setParameterValues` に `Map<String, Object>` のインスタンスを渡します。
 この例では `Map` のkeyにしている `firstName` がそのまま `#{firstName}` としてMapperで使用可能です。
 
-ただし、`parameterValues` をセットした場合、ページ取得で使われている `_skiprows` や `_pagesize` がClassCastExceptionとなってしまうので、
+~~ただし、`parameterValues` をセットした場合、ページ取得で使われている `_skiprows` や `_pagesize` がClassCastExceptionとなってしまうので、~~
+ただし、 `@Param` の引数が1つだとなぜかClassCastExceptionとなってしまうので、今回のように `firstName` だけ渡したい場合は、
 
 以下のコードのように、 `@Param` で引数として受け取る必要があります。
 ```
     @Select("SELECT first_name, last_name FROM people WHERE first_name = #{firstName} ORDER BY person_id ASC LIMIT #{_skiprows}, #{_pagesize}")
     Person select(@Param("firstName") String firstName, @Param("_skiprows") int skipRows, @Param("_pagesize") int pageSize);
 ```
+
+もしくは、
+```
+@Select("SELECT first_name, last_name FROM people WHERE first_name = #{firstName} ORDER BY person_id ASC LIMIT #{_skiprows}, #{_pagesize}")
+    Person select();
+```
+のように引数を指定しないようにした方が良いでしょう。（前述の、バッチ以外からの呼び出しにも対応... ができなくなりますが
 
 ### ページサイズの指定
 `setPageSize` で指定します。以下のようにSQLのLIMITに `#{_skiprows}` と `#{_pagesize}` を指定してなければ動作しません。
