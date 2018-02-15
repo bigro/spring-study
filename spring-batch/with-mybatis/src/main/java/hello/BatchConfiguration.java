@@ -47,7 +47,7 @@ public class BatchConfiguration {
         reader.setQueryId(PersonMapper.class.getName() + ".select");
         reader.setParameterValues(parameter);
 
-        // パラメーターを渡さない。15件取得できるのでsetPageSizeの動作を確認したい時はこっち。
+        // 全件取得。15件取得できるのでsetPageSizeの動作を確認したい時はこっち。
 //        reader.setQueryId(PersonMapper.class.getName() + ".selectAll");
 
         reader.setPageSize(5);
