@@ -32,7 +32,7 @@ peopleテーブルから取得した名前を大文字にしてpeople_upper_case
 
 ### パラメータの指定
 `setParameterValues` に `Map<String, Object>` のインスタンスを渡します。
-この例では `Map` のkeyにしている `firstName` そのまま `#{firstName}` としてMapperで使用可能です。
+この例では `Map` のkeyにしている `firstName` がそのまま `#{firstName}` としてMapperで使用可能です。
 
 ただし、`parameterValues` をセットした場合、ページ取得で使われている `_skiprows` や `_pagesize` がClassCastExceptionとなってしまうので、
 
@@ -44,6 +44,9 @@ peopleテーブルから取得した名前を大文字にしてpeople_upper_case
 
 ### ページサイズの指定
 `setPageSize` で指定します。以下のようにSQLのLIMITに `#{_skiprows}` と `#{_pagesize}` を指定してなければ動作しません。
+```
+@Select("SELECT first_name, last_name FROM people ORDER BY person_id ASC LIMIT #{_skiprows}, #{_pagesize}")
+```
 SQLで上記のLIMITの記載がないとページサイズを超えた件数を取得した時にループしてしまいます。
 
 ちなみに `chunk` と違う件数を指定してみると以下のようになります。
