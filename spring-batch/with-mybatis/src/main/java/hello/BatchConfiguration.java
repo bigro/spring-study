@@ -38,14 +38,13 @@ public class BatchConfiguration {
     @Bean
     public MyBatisPagingItemReader<Person> reader(SqlSessionFactory sqlSessionFactory) {
         MyBatisPagingItemReader<Person> reader = new MyBatisPagingItemReader<>();
-        Map<String, Object> parameter = new HashMap<>();
-        parameter.put("firstName", "Jill");
-
         reader.setSqlSessionFactory(sqlSessionFactory);
 
-        // パラメーターを渡す。
-        reader.setQueryId(PersonMapper.class.getName() + ".select");
+        // firstNameで検索。
+        Map<String, Object> parameter = new HashMap<>();
+        parameter.put("firstName", "Jill");
         reader.setParameterValues(parameter);
+        reader.setQueryId(PersonMapper.class.getName() + ".select");
 
         // 全件取得。15件取得できるのでsetPageSizeの動作を確認したい時はこっち。
 //        reader.setQueryId(PersonMapper.class.getName() + ".selectAll");
