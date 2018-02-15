@@ -16,8 +16,9 @@ peopleテーブルから取得した名前を大文字にしてpeople_upper_case
 >異なるネームスペースに属するクエリを指定する場合はネームスペースの指定を忘れないようにしてください。 
 
 ### パラメータの指定
-この例では、前処理の`processor` が `Person` を返してるので、 `@Param` で `Person` のフィールド名を指定することによって、
-`Person` のフィールドに格納された値にアクセスすることができます。
+この例では、前処理の`processor` が `Person` を返してるので、`#{firstName}` などのフィールド名で値をマッピングできます。
+  
+また、以下のコードのように `@Param` で `Person` のフィールド名を指定して引数で受け取る形にしておく方がバッチ以外の呼び出しにも対応できます。
 ```
 @Insert("INSERT INTO people (first_name, last_name) VALUES (#{firstName}, #{lastName})")
     void insert(@Param("lastName") String lastName, @Param("firstName") String firstName);
@@ -28,6 +29,18 @@ peopleテーブルから取得した名前を大文字にしてpeople_upper_case
 
 ### クエリの指定
 `setQueryId` で指定します。指定の方法は `MyBatisBatchItemWriter` と同様です。
+
+### パラメータの指定
+`setParameterValues` に `Map<String, Object>` のインスタンスを渡します。
+この例では `Map` のkeyにしている `firstName` そのまま `#{firstName}` としてMapperで使用可能です。
+
+ただし、`parameterValues` をセットした場合、ページ取得で使われている `_skiprows` や `_pagesize` がClassCastExceptionとなってしまうので、
+
+以下のコードのように、 `@Param` で引数として受け取る必要があります。
+```
+    @Select("SELECT first_name, last_name FROM people WHERE first_name = #{firstName} ORDER BY person_id ASC LIMIT #{_skiprows}, #{_pagesize}")
+    Person select(@Param("firstName") String firstName, @Param("_skiprows") int skipRows, @Param("_pagesize") int pageSize);
+```
 
 ### ページサイズの指定
 `setPageSize` で指定します。以下のようにSQLのLIMITに `#{_skiprows}` と `#{_pagesize}` を指定してなければ動作しません。
