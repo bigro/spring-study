@@ -2,6 +2,7 @@ package hello;
 
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.batch.MyBatisBatchItemWriter;
+import org.mybatis.spring.batch.MyBatisCursorItemReader;
 import org.mybatis.spring.batch.MyBatisPagingItemReader;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
@@ -34,7 +35,7 @@ public class BatchConfiguration {
     @Autowired
     public StepBuilderFactory stepBuilderFactory;
 
-    // tag::readerwriterprocessor[]
+    // ページ単位での取得
     @Bean
     public MyBatisPagingItemReader<Person> reader(SqlSessionFactory sqlSessionFactory) {
         MyBatisPagingItemReader<Person> reader = new MyBatisPagingItemReader<>();
@@ -44,14 +45,24 @@ public class BatchConfiguration {
         Map<String, Object> parameter = new HashMap<>();
         parameter.put("firstName", "Jill");
         reader.setParameterValues(parameter);
-        reader.setQueryId(PersonMapper.class.getName() + ".select");
+        reader.setQueryId(PersonMapper.class.getName() + ".selectPage");
 
         // 全件取得。15件取得できるのでsetPageSizeの動作を確認したい時はこっち。
-//        reader.setQueryId(PersonMapper.class.getName() + ".selectAll");
+//        reader.setQueryId(PersonMapper.class.getName() + ".selectPageAll");
 
         reader.setPageSize(5);
         return reader;
     }
+
+    // カーソルでの取得
+//    @Bean
+//    public MyBatisCursorItemReader<Person> reader(SqlSessionFactory sqlSessionFactory) {
+//        MyBatisCursorItemReader<Person> reader = new MyBatisCursorItemReader<>();
+//        reader.setSqlSessionFactory(sqlSessionFactory);
+//        reader.setQueryId(PersonMapper.class.getName() + ".selectAll");
+//
+//        return reader;
+//    }
 
     @Bean
     public PersonItemProcessor processor() {

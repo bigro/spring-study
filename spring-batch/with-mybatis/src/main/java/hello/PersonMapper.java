@@ -12,10 +12,14 @@ public interface PersonMapper {
             @Result(property = "lastName", column = "last_name")
     })
     @Select("SELECT first_name, last_name FROM people WHERE first_name = #{firstName} ORDER BY person_id ASC LIMIT #{_skiprows}, #{_pagesize}")
-    Person select(@Param("firstName") String firstName, @Param("_skiprows") int skipRows, @Param("_pagesize") int pageSize);
+    Person selectPage(@Param("firstName") String firstName, @Param("_skiprows") int skipRows, @Param("_pagesize") int pageSize);
 
     @ResultMap("person")
     @Select("SELECT first_name, last_name FROM people ORDER BY person_id ASC LIMIT #{_skiprows}, #{_pagesize}")
+    Person selectPageAll(@Param("_skiprows") int skipRows, @Param("_pagesize") int pageSize);
+
+    @ResultMap("person")
+    @Select("SELECT first_name, last_name FROM people")
     Person selectAll(@Param("_skiprows") int skipRows, @Param("_pagesize") int pageSize);
 
 }
