@@ -21,6 +21,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
 
 import javax.sql.DataSource;
+import java.util.HashMap;
+import java.util.Map;
 
 @Configuration
 @EnableBatchProcessing
@@ -36,9 +38,19 @@ public class BatchConfiguration {
     @Bean
     public MyBatisPagingItemReader<Person> reader(SqlSessionFactory sqlSessionFactory) {
         MyBatisPagingItemReader<Person> reader = new MyBatisPagingItemReader<>();
+        Map<String, Object> parameter = new HashMap<>();
+        parameter.put("firstName", "Jill");
+
         reader.setSqlSessionFactory(sqlSessionFactory);
+
+        // パラメーターを渡す。
         reader.setQueryId(PersonMapper.class.getName() + ".select");
-        reader.setPageSize(10);
+        reader.setParameterValues(parameter);
+
+        // パラメーターを渡さない。15件取得できるのでsetPageSizeの動作を確認したい時はこっち。
+//        reader.setQueryId(PersonMapper.class.getName() + ".selectAll");
+
+        reader.setPageSize(5);
         return reader;
     }
 
@@ -70,7 +82,7 @@ public class BatchConfiguration {
     @Bean
     public Step step1(SqlSessionFactory sqlSessionFactory) {
         return stepBuilderFactory.get("step1")
-                .<Person, Person> chunk(5)
+                .<Person, Person>chunk(5)
                 .reader(reader(sqlSessionFactory))
                 .processor(processor())
                 .writer(writer(sqlSessionFactory))
