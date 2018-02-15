@@ -37,6 +37,7 @@ peopleテーブルから取得した名前を大文字にしてpeople_upper_case
 この例では `Map` のkeyにしている `firstName` がそのまま `#{firstName}` としてMapperで使用可能です。
 
 ~~ただし、`parameterValues` をセットした場合、ページ取得で使われている `_skiprows` や `_pagesize` がClassCastExceptionとなってしまうので、~~
+
 ただし、 `@Param` の引数が1つだとなぜかClassCastExceptionとなってしまうので、今回のように `firstName` だけ渡したい場合は、
 
 以下のコードのように、 `@Param` で引数として受け取る必要があります。
