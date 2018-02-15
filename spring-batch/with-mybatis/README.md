@@ -18,7 +18,7 @@ peopleテーブルから取得した名前を大文字にしてpeople_upper_case
 ### パラメータの指定
 この例では、前処理の`processor` が `Person` を返してるので、`#{firstName}` などのフィールド名で値をマッピングできます。
   
-また、以下のコードのように `@Param` で `Person` のフィールド名を指定して引数で受け取る形にしておく方がバッチ以外の呼び出しにも対応できます。
+また、以下のコードのように `@Param` で `Person` のフィールド名を指定して引数で受け取る形にしておく方がバッチ以外からの呼び出しにも対応できます。
 ```
 @Insert("INSERT INTO people (first_name, last_name) VALUES (#{firstName}, #{lastName})")
     void insert(@Param("lastName") String lastName, @Param("firstName") String firstName);
