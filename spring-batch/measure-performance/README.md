@@ -3,9 +3,10 @@
 
 [with-mybatis](../with-mybatis)を元にしています。
 
-## 測定結果
+## MyBatisPagingItemReaderとMyBatisCursorItemReaderを比較
 chunkを1000で指定。
 
+### 測定結果
 |Paging(1000)|Cursor|
 |---|---|
 |110896ms|51315ms|
