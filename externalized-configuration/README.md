@@ -12,3 +12,4 @@ bootRun {
 	}
 }
 ```
+（[build.gradle全文](./build.gradle)）
