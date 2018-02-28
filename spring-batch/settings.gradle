@@ -1,1 +1,1 @@
-include 'quick-start', 'getting-started', 'with-mybatis', 'measure-performance'
+include 'quick-start', 'getting-started', 'with-mybatis', 'measure-performance', 'upload-s3'
