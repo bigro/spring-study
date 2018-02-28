@@ -1,0 +1,21 @@
+allprojects {
+    buildscript {
+        ext {
+            compatibility = 1.8
+        }
+    }
+
+    apply plugin: 'java'
+
+    sourceCompatibility = compatibility
+    targetCompatibility = compatibility
+
+    dependencies {
+        compile 'org.springframework:spring-context:5.0.4.RELEASE'
+    }
+
+    repositories {
+        jcenter()
+        mavenCentral()
+    }
+}
