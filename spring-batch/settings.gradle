@@ -1,1 +1,1 @@
-include 'quick-start', 'getting-started', 'with-mybatis', 'measure-performance', 'upload-s3'
+include 'quick-start', 'getting-started', 'with-mybatis', 'measure-performance', 'upload-s3', 'tasklet'
