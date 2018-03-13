@@ -52,8 +52,8 @@ public class BatchConfiguration {
         fieldExtractor.setNames(new String[]{"isin", "quantity", "price", "customer"});
         fieldExtractor.afterPropertiesSet();
 
-        DelimitedLineAggregator<Order> lineAggregator = new DelimitedLineAggregator<>();
-        lineAggregator.setDelimiter(",");
+        FormatterLineAggregator<Order> lineAggregator = new FormatterLineAggregator<>();
+        lineAggregator.setFormat("%12s%3s%5s%9s");
         lineAggregator.setFieldExtractor(fieldExtractor);
 
         writer.setLineAggregator(lineAggregator);
