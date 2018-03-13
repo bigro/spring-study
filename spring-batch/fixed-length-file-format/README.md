@@ -16,7 +16,7 @@
 `FieldSet` という概念があるがあるが、これはJDBCの `ResultSet` のファイルを扱うものと思えば良いです。（ファイル操作のクライアント）
 
 ## Writer
-`BeanWrapperFieldExtractor` を使ってドメインモデル([Order](./src/main/java/hello/Order.java))からフィールドを抽出します。
+`BeanWrapperFieldExtractor` を使ってドメインモデル([Order](./src/main/java/hello/Order.java))からフィールドを抽出します。（この時にドメインモデルに各フィールドのgetterがないと落ちます）
 
 抽出したフィールドを `FormatterLineAggregator`で固定長のLineに集約していきます。
 
