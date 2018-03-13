@@ -82,15 +82,18 @@ public class BatchConfiguration {
     public FixedLengthTokenizer fixedLengthTokenizer() {
         FixedLengthTokenizer tokenizer = new FixedLengthTokenizer();
 
+        // FieldSetに格納される際のキー名を指定する。
         String[] names = {"isin", "quantity", "price", "customer"};
         tokenizer.setNames(names);
 
+        // FieldSetに格納する項目の文字列長
         Range[] ranges = {new Range(1, 12), new Range(13, 15), new Range(16, 20), new Range(21, 29)};
         tokenizer.setColumns(ranges);
 
         return tokenizer;
     }
 
+    // 固定長の場合は、基本的にはDefaultLineMapperにFixedLengthTokenizerと自作のFieldSetMapperをセットしてあげれば良い
     @Bean
     public DefaultLineMapper<Order> defaultLineMapper() {
         DefaultLineMapper<Order> orderDefaultLineMapper = new DefaultLineMapper<>();
