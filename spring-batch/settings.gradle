@@ -1,1 +1,1 @@
-include 'quick-start', 'getting-started', 'with-mybatis', 'measure-performance', 'upload-s3', 'tasklet', 'flat-file-item-reader', 'output-file'
+include 'quick-start', 'getting-started', 'with-mybatis', 'measure-performance', 'upload-s3', 'tasklet', 'flat-file-item-reader', 'output-file', 'fixed-length-file-format'
